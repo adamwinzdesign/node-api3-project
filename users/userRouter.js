@@ -46,16 +46,41 @@ router.get('/:id', (req, res) => {
     })
 });
 
+// get all posts from a given user
 router.get('/:id/posts', (req, res) => {
-  // do your magic!
+  const id = req.params.id;
+  users.getUserPosts(id)
+    .then(post => {
+      res.status(200).json(post)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'Server error getting all posts for that user', error })
+    })
 });
 
+// delete user
 router.delete('/:id', (req, res) => {
-  // do your magic!
+  const id = req.params.id;
+  users.remove(id)
+    .then(user => {
+      res.status(200).json({ message: 'User deleted!', user })
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'Server error removing this user', error })
+    })
 });
 
+// update user
 router.put('/:id', (req, res) => {
-  // do your magic!
+  const id = req.params.id;
+  const changes = req.body
+  users.update(id, changes)
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'Server error updating user', error })
+    })
 });
 
 //custom middleware
