@@ -18,12 +18,20 @@ router.post('/', (req, res) => {
     })
 });
 
+// Post a new post for a given user
 router.post('/:id/posts', (req, res) => {
   // do your magic!
 });
 
+// get users
 router.get('/', (req, res) => {
-  // do your magic!
+  users.get() 
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'Server error getting users', error });
+    })
 });
 
 router.get('/:id', (req, res) => {
